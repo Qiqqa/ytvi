@@ -56,9 +56,10 @@
                 if (response.ok) {
                     videoId.textContent = result.videoId;
                     const strng = JSON.stringify(result, null, 2)   
-                                      .replace(/&/g, '&amp;')
-                                      .replace(/</g, '&lt;')
-                                      .replace(/>/g, '&gt;');
+                                      // .replace(/&/g, '&amp;')
+                                      // .replace(/</g, '&lt;')
+                                      // .replace(/>/g, '&gt;')
+                                      ;
                     const cdata = strng ; // '<![CDATA[' + strng + ']]>' ;
                     // document.getElementById('video-info-content').textContent = cdata;
                     videoInfo.value = cdata;
