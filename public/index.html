@@ -33,14 +33,15 @@
     </footer>
 
     <script>
-        document.getElementById('video-form').addEventListener('submit', async function(event) {
+        document.getElementById('video-form')
+                .addEventListener('submit', async function(event) {
             event.preventDefault();
 
             const videoUrl = document.getElementById('video-url').value;
             const videoId = document.getElementById('video-id');
             const videoInfo = document.getElementById('video-info-content');
 
-            videoInfo.textContent = '';
+            videoInfo.value = '';
 
             try {
                 const response = await fetch('/ytvi', {
