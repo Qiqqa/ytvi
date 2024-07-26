@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Video ID Extractor</title>
+    <title>YouTube Video Info Extractor</title>
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -25,17 +25,22 @@
         <div id="video-info">
             <h2>Video Info:</h2>
             <!-- pre id="video-info-content"></pre -->
-            <textarea id="video-info-content" rows="100" cols="50"></textarea>
+            <textarea id="video-info-content" rows="100" cols="200"></textarea>
         </div>
     </main>
     <footer>
-        <p>&copy; 2024 Video ID Extractor. All rights reserved.</p>
+        <p>&copy; 2024 Youtbe Video Info Extractor. All rights reserved.</p>
     </footer>
 
     <script>
         document.getElementById('video-form').addEventListener('submit', async function(event) {
             event.preventDefault();
+
             const videoUrl = document.getElementById('video-url').value;
+            const videoId = document.getElementById('video-id');
+            const videoInfo = document.getElementById('video-info-content');
+
+            videoInfo.textContent = '';
 
             try {
                 const response = await fetch('/ytvi', {
@@ -48,23 +53,21 @@
 
                 const result = await response.json();
                 if (response.ok) {
-                    document.getElementById('video-id').textContent = result.videoId;
+                    videoId.textContent = result.videoId;
                     const strng = JSON.stringify(result, null, 2)   
                                       .replace(/&/g, '&amp;')
                                       .replace(/</g, '&lt;')
                                       .replace(/>/g, '&gt;');
                     const cdata = strng ; // '<![CDATA[' + strng + ']]>' ;
                     // document.getElementById('video-info-content').textContent = cdata;
-                    document.getElementById('video-info-content').value = cdata;
+                    videoInfo.value = cdata;
                     console.log( cdata );
 
                 } else {
-                    document.getElementById('video-id').textContent = `Error: ${result.error}`;
-                    document.getElementById('video-info-content').textContent = '';
+                    videoId.textContent = `Error: ${result.error}`;
                 }
             } catch (error) {
-                document.getElementById('video-id').textContent = `Error: ${error.message}`;
-                document.getElementById('video-info-content').textContent = '';
+                videoId.textContent = `Error: ${error.message}`;
             }
         });
     </script>
