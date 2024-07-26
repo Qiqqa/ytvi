@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video ID Extractor</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <header>
+        <h1>YouTube Video ID Extractor</h1>
+    </header>
+    <main>
+        <form id="video-form">
+            <label for="video-url">Enter YouTube Video URL:</label>
+            <input type="text" id="video-url" name="video-url" required>
+            <button type="submit">Extract Video ID</button>
+        </form>
+
+        <div id="result">
+            <h2>Video ID:</h2>
+            <p id="video-id"></p>
+        </div>
+
+        <div id="video-info">
+            <h2>Video Info:</h2>
+            <!-- pre id="video-info-content"></pre -->
+            <textarea id="video-info-content" rows="100" cols="50"></textarea>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Video ID Extractor. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('video-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const videoUrl = document.getElementById('video-url').value;
+
+            try {
+                const response = await fetch('/ytvi', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ videoUrl })
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    document.getElementById('video-id').textContent = result.videoId;
+                    const strng = JSON.stringify(result, null, 2)   
+                                      .replace(/&/g, '&amp;')
+                                      .replace(/</g, '&lt;')
+                                      .replace(/>/g, '&gt;');
+                    const cdata = strng ; // '<![CDATA[' + strng + ']]>' ;
+                    // document.getElementById('video-info-content').textContent = cdata;
+                    document.getElementById('video-info-content').value = cdata;
+                    console.log( cdata );
+
+                } else {
+                    document.getElementById('video-id').textContent = `Error: ${result.error}`;
+                    document.getElementById('video-info-content').textContent = '';
+                }
+            } catch (error) {
+                document.getElementById('video-id').textContent = `Error: ${error.message}`;
+                document.getElementById('video-info-content').textContent = '';
+            }
+        });
+    </script>
+</body>
+</html>
