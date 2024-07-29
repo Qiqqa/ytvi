@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rainbow Border Input</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .rainbow-input {
+            position: relative;
+            width: 600px;
+        }
+
+        .rainbow-input input {
+            width: 99%;
+            padding 20px;
+            font-size: 28px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .rainbow-input::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(
+                45deg,
+                #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #8b00ff
+            );
+            border-radius: 8px;
+            z-index: -1;
+            animation: rainbow 6s linear infinite;
+        }
+
+        @keyframes rainbow {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+            50% {
+                filter: hue-rotate(180deg);
+            }
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+
+.rainbow-input {
+    animation: rainbow 10s ease-in infinite;
+}
+
+
+
+
+
+
+
+
+        .search-container {
+            display: flex;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-input {
+            padding: 10px 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-right: none;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+            outline: none;
+        }
+
+        .search-button {
+            background-color: #4CAF50;
+            border: 1px solid #4CAF50;
+            border-left: none;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 1.0s;
+        }
+
+        .search-button:hover {
+            background-color: #45a049;
+        }
+
+        .search-button svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="rainbow-input">
+        <input type="text" placeholder="Type something...">
+    </div>
+<p>lllllllllllllllllll</p>
+<div class="rainbow-input">
+ <div class="search-container">
+        <input type="text" class="search-input" placeholder="Search...">
+        <button class="search-button">
+            <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+            </svg>
+        </button>
+    </div>
+</div>
+</body>
+</html>
